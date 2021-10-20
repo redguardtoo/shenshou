@@ -1,0 +1,38 @@
+* shenshou (神兽)
+[[file:shenshou.jpg]]
+
+[[https://github.com/redguardtoo/shenshou/actions/workflows/test.yml][https://github.com/redguardtoo/shenshou/actions/workflows/test.yml/badge.svg]]
+[[http://melpa.org/#/shenshou][file:http://melpa.org/packages/shenshou-badge.svg]]
+[[http://stable.melpa.org/#/shenshou][file:http://stable.melpa.org/packages/shenshou-badge.svg]]
+
+Download subtitles from opensubtitles.org
+
+* Install
+Place =shenshou.el= under your [[https://www.emacswiki.org/emacs/LoadPath][Load Path]]. Then add =(require 'shenshou)= to your configuration.
+
+* Configuration
+You MUST register at http://opensubtitles.org first. That's [[https://forum.opensubtitles.org/viewtopic.php?f=11&t=17110][required by them]].
+
+Command line program "curl" and "gzip" should exist.
+
+* Usage
+- Set =shenshou-login-user-name= and =shenshou-login-password=.
+- Run =shenshou-download-subtitle= in dired buffer or anywhere.
+- Run =shenshou-logout-now= to logout.
+
+* Tips
+** Set http or socks5 proxy
+#+begin_src elisp
+;; socks5 proxy
+(setq shenshou-curl-extra-options "-x socks5h://127.0.0.1:9050")
+;; http rpoxy
+(setq shenshou-curl-extra-options "-x http://username:password@127.0.0.1:8081")
+#+end_src
+** Select the right subtitle
+This program gives you the freedom to select the right subtitle. For example, a DVD ripped video might match the DVD ripped subtitle.
+* Bug Report
+Check [[https://github.com/redguardtoo/shenshou]].
+* License
+This program is free software: you can redistribute it and/or modify it under the terms of the [[file:LICENSE][GNU General Public License]] as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the [[file:LICENSE][GNU General Public License]] for more details.
