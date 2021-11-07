@@ -13,7 +13,7 @@ Place =shenshou.el= under your [[https://www.emacswiki.org/emacs/LoadPath][Load 
 * Configuration
 You MUST register at http://opensubtitles.org first. That's [[https://forum.opensubtitles.org/viewtopic.php?f=11&t=17110][required by them]].
 
-Command line program "curl" and "gzip" should exist.
+Command line program "curl" and "gzip" should exist. See =shenshou-curl-program= and =shenshou-gzip-program=.
 
 * Usage
 - Set =shenshou-login-user-name= and =shenshou-login-password=.
