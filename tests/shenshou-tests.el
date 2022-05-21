@@ -28,8 +28,17 @@
 (require 'ert)
 (require 'shenshou)
 
-(ert-deftest shenshou-test-xml-rpc ()
-  t)
+(setq shenshou-debug t)
+(ert-deftest shenshou-test-sort-subtitles ()
+  (let* ((video "movie")
+         (subtitles '(("whatever" . (:moviereleasename "whatever"))
+                      ("s99" . (:moviereleasename "movie99"))
+                      ("s1" . (:moviereleasename "movie1"))))
+         sorted-subtitles)
+    (setq sorted-subtitles (shenshou-sort-subtitles subtitles video))
+    (should (equal (car (nth 0 sorted-subtitles)) "s1"))
+    (should (equal (car (nth 1 sorted-subtitles)) "s99"))
+    (should (equal (car (nth 2 sorted-subtitles)) "whatever"))))
 
 (ert-run-tests-batch-and-exit)
 ;;; shenshou-tests.el ends here
