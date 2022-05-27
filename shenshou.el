@@ -1,8 +1,8 @@
 ;;; shenshou.el --- Download subtitles from opensubtitles.org -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2021 Chen Bin
+;; Copyright (C) 2021-2022 Chen Bin
 ;;
-;; Version: 0.0.2
+;; Version: 0.0.3
 
 ;; Author: Chen Bin <chenbin DOT sh AT gmail DOT com>
 ;; URL: http://github.com/redguardtoo/shenshou
@@ -44,8 +44,6 @@
 ;;  Tips,
 ;;   - See `shenshou-curl-extra-options' on how to set SOCKS5 or HTTP proxy
 ;;   - This program gives you the freedom to select the right subtitle.
-;;     For example, a DVD ripped video might match the DVD ripped subtitle.
-;;
 
 ;;; Code:
 ;;
@@ -326,27 +324,32 @@ OpenSubtitles.org uses special hash function to match subtitles against videos."
   (interactive)
   (setq shenshou-token nil))
 
+(defun shenshou-process-query (name)
+  "Get query from video file NAME."
+  (let ((query (match-string 1 name)))
+    (replace-regexp-in-string " *([^)]*$" "" query)))
+
 (defun shenshou-guess-video-info (name)
   "Guess information from NAME of video."
   (let* (video-info)
     (cond
      ((string-match shenshou-tvshow-regex-1 name)
       (setq video-info (plist-put video-info :moviekind "tv"))
-      (setq video-info (plist-put video-info :query (match-string 1 name)))
+      (setq video-info (plist-put video-info :query (shenshou-process-query name)))
       (setq video-info (plist-put video-info :season (match-string 2 name)))
       (setq video-info (plist-put video-info :episode (match-string 3 name)))
       (setq video-info (plist-put video-info :team (match-string 4 name))))
 
      ((string-match shenshou-tvshow-regex-2 name)
       (setq video-info (plist-put video-info :moviekind "tv"))
-      (setq video-info (plist-put video-info :query (match-string 1 name)))
+      (setq video-info (plist-put video-info :query (shenshou-process-query name)))
       (setq video-info (plist-put video-info :season (match-string 2 name)))
       (setq video-info (plist-put video-info :episode (match-string 3 name)))
       (setq video-info (plist-put video-info :team (match-string 4 name))))
 
      ((string-match shenshou-movie-regex-1 name)
       (setq video-info (plist-put video-info :moviekind "movie"))
-      (setq video-info (plist-put video-info :query (match-string 1 name)))
+      (setq video-info (plist-put video-info :query (shenshou-process-query name)))
       (setq video-info (plist-put video-info :movieyear (match-string 2 name)))
       (setq video-info (plist-put video-info :team (match-string 3 name))))
 
@@ -466,7 +469,7 @@ If FILTER-LEVEL is 2, do more checking on movie name."
         (setq sub (plist-put sub :sublanguageid (setq lang (shenshou-xml-get-value-by-name all-props "SubLanguageID"))))
         (setq sub (plist-put sub :subdownloadlink (shenshou-xml-get-value-by-name all-props "SubDownloadLink")))
         (setq sub (plist-put sub :moviehash (shenshou-xml-get-value-by-name all-props "MovieHash")))
-        (push (cons (format "%s => %s(%s)" movie-release-name subfilename lang) sub) subtitles)))
+        (push (cons (format "%s(%s)" subfilename lang) sub) subtitles)))
 
   (when shenshou-debug
     (message "shenshou-filter-subtitles: candidates=%s video-file=%s filter-level=%s subtitles=%s"
