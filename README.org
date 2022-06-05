@@ -11,12 +11,15 @@ Download subtitles from opensubtitles.org
 Place =shenshou.el= under your [[https://www.emacswiki.org/emacs/LoadPath][Load Path]]. Then add =(require 'shenshou)= to your configuration.
 
 * Configuration
-You MUST register at http://opensubtitles.org first. That's [[https://forum.opensubtitles.org/viewtopic.php?f=11&t=17110][required by them]].
+You MUST register at http://opensubtitles.org first. That's [[https://forum.opensubtitles.org/viewtopic.php?f=11&t=17110][required by them]]. Then set =shenshou-login-user-name= and =shenshou-login-password= using your registered  opensubtitles account,
+#+begin_src elisp
+(setq shenshou-login-user-name "redguardtoo")
+(setq shenshou-login-password "mypassword")
+#+end_src
 
 Command line program "curl" and "gzip" should exist. See =shenshou-curl-program= and =shenshou-gzip-program=.
 
 * Usage
-- Set =shenshou-login-user-name= and =shenshou-login-password=.
 - Run =shenshou-download-subtitle= in dired buffer or anywhere.
 - Run =shenshou-logout-now= to logout.
 
@@ -28,6 +31,14 @@ Command line program "curl" and "gzip" should exist. See =shenshou-curl-program=
 ;; http rpoxy
 (setq shenshou-curl-extra-options "-x http://username:password@127.0.0.1:8081")
 #+end_src
+** Set up subtitle's language
+You can set =shenshou-language-code-list=,
+#+begin_src elisp
+# see https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes for details
+(setq shenshou-language-code-list "eng") # search English subtitles
+(setq shenshou-language-code-list "eng,chi") # search English, Chinese subtitles
+#+end_src
+
 ** Select the right subtitle
 This program gives you the freedom to select the right subtitle.
 * Bug Report
