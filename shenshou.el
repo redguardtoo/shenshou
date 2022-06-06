@@ -71,7 +71,7 @@
   :group 'shenshou)
 
 (defcustom shenshou-language-code-list "eng"
-  "Language codes to search for, divided by ',' (e.g. 'chi,rus,spa,eng').
+  "Language codes to search for, divided by \",\" (e.g. \"chi,rus,spa,eng\").
 See https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes for details."
   :type 'string
   :group 'shenshou)
