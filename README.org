@@ -21,8 +21,8 @@ Command line program "curl" and "gzip" should exist. See =shenshou-curl-program=
 
 * Usage
 - Run =shenshou-download-subtitle= in dired buffer or anywhere.
+- Run =shenshou-extract-subtitle-from-zip= to extract subtitle from zip file. Subtitle is automatically renamed to match selected video file.
 - Run =shenshou-logout-now= to logout.
-
 * Tips
 ** Set http or socks5 proxy
 #+begin_src elisp
