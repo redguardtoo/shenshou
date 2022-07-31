@@ -5,19 +5,19 @@
 [[http://melpa.org/#/shenshou][file:http://melpa.org/packages/shenshou-badge.svg]]
 [[http://stable.melpa.org/#/shenshou][file:http://stable.melpa.org/packages/shenshou-badge.svg]]
 
-Download subtitles from opensubtitles.org
+Download subtitles from opensubtitles
 
 * Install
 Place =shenshou.el= under your [[https://www.emacswiki.org/emacs/LoadPath][Load Path]]. Then add =(require 'shenshou)= to your configuration.
 
 * Configuration
-You MUST register at http://opensubtitles.org first. That's [[https://forum.opensubtitles.org/viewtopic.php?f=11&t=17110][required by them]]. Then set =shenshou-login-user-name= and =shenshou-login-password= using your registered  opensubtitles account,
+You MUST register at http://opensubtitles.com first. That's required by opensubtitles. Please set =shenshou-login-user-name= and =shenshou-login-password= using your registered account,
 #+begin_src elisp
 (setq shenshou-login-user-name "redguardtoo")
 (setq shenshou-login-password "mypassword")
 #+end_src
 
-Command line program "curl" and "gzip" should exist. See =shenshou-curl-program= and =shenshou-gzip-program=.
+Command line program "curl" should exist. See =shenshou-curl-program=.
 
 * Usage
 - Run =shenshou-download-subtitle= in dired buffer or anywhere.
@@ -31,16 +31,16 @@ Command line program "curl" and "gzip" should exist. See =shenshou-curl-program=
 ;; http rpoxy
 (setq shenshou-curl-extra-options "-x http://username:password@127.0.0.1:8081")
 #+end_src
-** Set up subtitle's language
+** Set up language
 You can set =shenshou-language-code-list=,
 #+begin_src elisp
-# see https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes for details
-(setq shenshou-language-code-list "eng") # search English subtitles
-(setq shenshou-language-code-list "eng,chi") # search English, Chinese subtitles
+# see https://en.wikipedia.org/wiki/ISO_639-1 for details
+(setq shenshou-language-code-list "en") # search English subtitles
+(setq shenshou-language-code-list "en,zh") # search English, Chinese subtitles
 #+end_src
 
-** Select the right subtitle
-This program gives you the freedom to select the right subtitle.
+** Select right subtitle
+This program gives you the freedom to select the right subtitle from multiple candidates. The recommended candidates are at the top.
 * Bug Report
 Check [[https://github.com/redguardtoo/shenshou]].
 * License
