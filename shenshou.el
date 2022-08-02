@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2021-2022 Chen Bin
 ;;
-;; Version: 0.0.6
+;; Version: 0.0.7
 
 ;; Author: Chen Bin <chenbin DOT sh AT gmail DOT com>
 ;; URL: http://github.com/redguardtoo/shenshou
@@ -114,7 +114,7 @@ If it's empty, user is required to provide password during login process."
   :type 'string
   :group 'shenshou)
 
-(defcustom shenshou-api-key "7sCnLawJ27jMMbsaHSAgy0IVGOaqt8H1"
+(defcustom shenshou-api-key "z5DwIIBH3Wojy9g1036K4jmnvOJWFgKp"
   "Api key to access opensubtitles endpoint."
   :type 'string
   :group 'shenshou)
