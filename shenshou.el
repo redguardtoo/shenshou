@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2021-2023 Chen Bin
 ;;
-;; Version: 0.1.0
+;; Version: 0.1.1
 
 ;; Author: Chen Bin <chenbin DOT sh AT gmail DOT com>
 ;; URL: http://github.com/redguardtoo/shenshou
@@ -161,43 +161,6 @@ If it's empty, user is required to provide password during login process."
       (setq m (* m 256))
       (setq j (1+ j)))
     n))
-
-(defun shenshou-hash-and-size(file)
-  "Get hash and size of video FILE in the format like (hash . size).
-OpenSubtitles.org uses special hash function to match subtitles against videos."
-  ;; @see https://trac.opensubtitles.org/projects/opensubtitles/wiki/HashSourceCodes
-  (let (str fsize hash i rlt len)
-    (setq str (with-temp-buffer
-                (set-buffer-multibyte nil)
-                (setq buffer-file-coding-system 'binary)
-                (insert-file-contents-literally file)
-                (buffer-substring-no-properties (point-min) (point-max))))
-    (setq fsize (length str))
-    (setq hash fsize)
-
-    (when (> fsize 131072)
-      ;; first 64k bytes
-      (setq i 0)
-      (while (< i 65536)
-        (setq hash (logand (+ hash (shenshou-value i str)) #xFFFFFFFFFFFFFFFF))
-        (setq i (+ i 8)))
-
-      ;; last 64k bytes
-      (setq i (- fsize 65536))
-      (while (< i fsize)
-        (setq hash (logand (+ hash (shenshou-value i str)) #xFFFFFFFFFFFFFFFF))
-        (setq i (+ i 8)))
-
-      (setq rlt (format "%016x" hash))
-      ;; only last 16 digits of hash is used
-      (when (> (setq len (length rlt)) 16)
-        (setq rlt (substring rlt (- len 16) len))))
-
-    (when shenshou-debug
-      (message "shenshou-hash-and-size called => file=%s hash=%s size=%s" file rlt fsize))
-
-    (when rlt
-      (list :moviehash rlt :moviebytesize fsize))))
 
 (defun shenshou-xml-rpc-post-data (method &optional params)
   "Create post data from METHOD and PARAMS."
@@ -391,8 +354,7 @@ OpenSubtitles.org uses special hash function to match subtitles against videos."
 
 (defun shenshou-params-from-videos (video-file)
   "Generate rpc parameters from VIDEO-FILE."
-  (let* (rlt video-info extra hash-and-size)
-
+  (let* (rlt video-info extra)
     (cond
      ;; guess info from base file name
      ((setq video-info (shenshou-guess-video-info video-file))
