@@ -17,7 +17,7 @@ You MUST register at http://opensubtitles.com first. Please set =shenshou-login-
 (setq shenshou-login-password "mypassword")
 #+end_src
 
-Command line program "curl" and "gzip" should exist. See =shenshou-curl-program=.
+Command line program "curl" should exist. See =shenshou-curl-program=.
 
 * Usage
 - Run =shenshou-download-subtitle= in dired buffer or anywhere.
